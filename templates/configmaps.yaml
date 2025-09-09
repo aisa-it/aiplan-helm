@@ -1,0 +1,51 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: aiplan-config
+data:
+  SECRET_KEY: {{ .Values.aiplan.secretKey }}
+  JITSI_SECRET_KEY: {{ .Values.aiplan.jitsiURL }}
+  AWS_ACCESS_KEY_ID: {{ .Values.minio.accessKey }}
+  AWS_SECRET_ACCESS_KEY: {{ .Values.minio.secretKey }}
+  AWS_S3_ENDPOINT_URL: {{ if .Values.minio.enabled }} "minio:9000" {{ else }} {{ .Values.minio.endpointURL }} {{ end }}
+  AWS_S3_BUCKET_NAME: {{ .Values.minio.bucketName }}
+  DATABASE_URL: {{ if .Values.db.enabled }} "postgres://{{ .Values.db.user }}:{{ .Values.db.password }}@postgres:5432/{{ .Values.db.dbName }}?sslmode=disable" {{ else }} {{ .Values.db.url }} {{ end }}
+  DEFAULT_EMAIL: {{ .Values.aiplan.defaultEmail }}
+  EMAIL_ACTIVITY_DISABLED: {{ .Values.aiplan.emailActivityDisabled | quote }}
+  EMAIL_HOST: {{ .Values.aiplan.emailHost }}
+  EMAIL_HOST_USER: {{ .Values.aiplan.emailUser }}
+  EMAIL_HOST_PASSWORD: {{ .Values.aiplan.emailPassword }}
+  EMAIL_PORT: {{ .Values.aiplan.emailPort | quote }}
+  EMAIL_FROM: {{ .Values.aiplan.emailFrom }}
+  EMAIL_WORKERS: {{ .Values.aiplan.emailWorkers | quote }}
+  WEB_URL: {{ .Values.aiplan.webURL }}
+  JITSI_URL: {{ .Values.aiplan.jitsiURL }}
+  NOTIFICATIONS_PERIOD: {{ .Values.aiplan.notificationPeriod | quote }}
+  TELEGRAM_BOT_TOKEN: {{ .Values.aiplan.telegramBotToken }}
+  TELEGRAM_COMMANDS_DISABLED: {{ .Values.aiplan.telegramCommandsDisabled | quote }}
+  SIGN_UP_ENABLE: {{ .Values.aiplan.signUpEnabled | quote }}
+  DEMO: {{ .Values.aiplan.isDemo | quote }}
+  SWAGGER: {{ .Values.aiplan.swaggerEnabled | quote }}
+  NY_ENABLE: {{ .Values.aiplan.newYearTheme | quote }}
+  CAPTCHA_DISABLED: {{ .Values.aiplan.captchaDisabled | quote }}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: db-config
+data:
+  POSTGRES_USER: {{ .Values.db.user }}
+  POSTGRES_PASSWORD: {{ .Values.db.password }}
+  POSTGRES_DB: {{ .Values.db.dbName }}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: minio-config
+data:
+  MINIO_ROOT_USER: {{ .Values.minio.rootAccessKey }}
+  MINIO_ROOT_PASSWORD: {{ .Values.minio.rootSecretKey }}
+  AWS_ACCESS_KEY_ID: {{ .Values.minio.accessKey }}
+  AWS_SECRET_ACCESS_KEY: {{ .Values.minio.secretKey }}
+  AWS_S3_ENDPOINT_URL: {{ .Values.minio.endpointURL }}
+  AWS_S3_BUCKET_NAME: {{ .Values.minio.bucketName }}
