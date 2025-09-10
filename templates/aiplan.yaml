@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: aiplan
-          image: "ghcr.io/aisa-it/aiplan:v{{ .Chart.AppVersion }}"
+          image: "ghcr.io/aisa-it/aiplan:{{ .Values.aiplan.version }}"
           imagePullPolicy: "Always"
           envFrom:
             - configMapRef:

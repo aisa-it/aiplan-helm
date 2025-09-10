@@ -1,4 +1,5 @@
 aiplan:
+  version: "latest"
   secretKey: ""
   defaultEmail: ""
   emailActivityDisabled: false
