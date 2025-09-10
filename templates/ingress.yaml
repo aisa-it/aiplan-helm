@@ -28,7 +28,7 @@ spec:
           pathType: Prefix
           backend:
             service:
-              name: aiplan-minio
+              name: minio
               port:
                 number: 9000
 {{- if .Values.ingress.tls.issuer }}
