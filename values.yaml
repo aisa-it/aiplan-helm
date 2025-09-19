@@ -11,6 +11,8 @@ aiplan:
   emailWorkers: 5
   webURL: ""
   jitsiURL: ""
+  jitsiJWTSecret: ""
+  jitsiAppID: ""
   notificationPeriod: 5
   telegramBotToken: ""
   telegramCommandsDisabled: false

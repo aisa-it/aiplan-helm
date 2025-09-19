@@ -20,6 +20,8 @@ data:
   EMAIL_WORKERS: {{ .Values.aiplan.emailWorkers | quote }}
   WEB_URL: {{ .Values.aiplan.webURL }}
   JITSI_URL: {{ .Values.aiplan.jitsiURL }}
+  JITSI_JWT_SECRET: {{ .Values.aiplan.jitsiJWTSecret }}
+  JITSI_APP_ID: {{ .Values.aiplan.jitsiAppID }}
   NOTIFICATIONS_PERIOD: {{ .Values.aiplan.notificationPeriod | quote }}
   TELEGRAM_BOT_TOKEN: {{ .Values.aiplan.telegramBotToken }}
   TELEGRAM_COMMANDS_DISABLED: {{ .Values.aiplan.telegramCommandsDisabled | quote }}
