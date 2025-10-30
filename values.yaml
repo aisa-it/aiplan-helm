@@ -40,6 +40,10 @@ db:
   url: "" # If using external db
   storage: 10Gi
 
+memDB:
+  standalone: false
+  storage: 1Gi
+
 ingress:
   className: "nginx"
   enabled: true

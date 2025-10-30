@@ -30,6 +30,9 @@ data:
   SWAGGER: {{ .Values.aiplan.swaggerEnabled | quote }}
   NY_ENABLE: {{ .Values.aiplan.newYearTheme | quote }}
   CAPTCHA_DISABLED: {{ .Values.aiplan.captchaDisabled | quote }}
+{{- if .Values.memDB.standalone }}
+  EXTERNAL_MEMDB: "http://memdb:8080"
+{{- end}}
 ---
 apiVersion: v1
 kind: ConfigMap

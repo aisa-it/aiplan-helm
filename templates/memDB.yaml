@@ -1,0 +1,54 @@
+{{- if .Values.memDB.standalone }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: memdb
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: memdb
+  template:
+    metadata:
+      labels:
+        app: memdb
+    spec:
+      containers:
+        - name: memdb
+          image: ghcr.io/aisa-it/aiplan-mem:latest
+          imagePullPolicy: Always
+          env:
+            - name: AIPLAN_MEM_PATH
+              value: "/app/aiplanmem.db"
+          ports:
+            - containerPort: 8080
+          volumeMounts:
+            - name: memdb-storage
+              mountPath: /app/aiplanmem.db
+      restartPolicy: Always
+      volumes:
+      - name: memdb-storage
+        persistentVolumeClaim:
+          claimName: memdb-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: memdb
+spec:
+  selector:
+    app: memdb
+  ports:
+  - port: 8080
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: memdb-pvc
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: {{ .Values.memDB.storage }}
+{{- end }}
