@@ -21,6 +21,7 @@ aiplan:
   swaggerEnabled: false
   newYearTheme: false
   captchaDisabled: false
+  jitsiDisabled: false
 
 minio:
   enabled: true

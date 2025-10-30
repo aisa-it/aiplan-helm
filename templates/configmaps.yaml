@@ -33,6 +33,7 @@ data:
 {{- if .Values.memDB.standalone }}
   EXTERNAL_MEMDB: "http://memdb:8080"
 {{- end}}
+  JITSI_DISABLED: {{ .Values.aiplan.jitsiDisabled | quote }}
 ---
 apiVersion: v1
 kind: ConfigMap
