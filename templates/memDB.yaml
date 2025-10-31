@@ -19,12 +19,12 @@ spec:
           imagePullPolicy: Always
           env:
             - name: AIPLAN_MEM_PATH
-              value: "/app/aiplanmem.db"
+              value: "/data/aiplanmem.db"
           ports:
-            - containerPort: 8080
+            - containerPort: 8081
           volumeMounts:
             - name: memdb-storage
-              mountPath: /app/aiplanmem.db
+              mountPath: /data
       restartPolicy: Always
       volumes:
       - name: memdb-storage
@@ -39,7 +39,7 @@ spec:
   selector:
     app: memdb
   ports:
-  - port: 8080
+  - port: 8081
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
