@@ -31,7 +31,7 @@ data:
   NY_ENABLE: {{ .Values.aiplan.newYearTheme | quote }}
   CAPTCHA_DISABLED: {{ .Values.aiplan.captchaDisabled | quote }}
 {{- if .Values.memDB.standalone }}
-  EXTERNAL_MEMDB: "http://memdb:8081"
+  EXTERNAL_MEMDB: "http://memdb:8080"
 {{- end}}
   JITSI_DISABLED: {{ .Values.aiplan.jitsiDisabled | quote }}
 ---

@@ -21,7 +21,7 @@ spec:
             - name: AIPLAN_MEM_PATH
               value: "/data/aiplanmem.db"
           ports:
-            - containerPort: 8081
+            - containerPort: 8080
           volumeMounts:
             - name: memdb-storage
               mountPath: /data
@@ -39,7 +39,7 @@ spec:
   selector:
     app: memdb
   ports:
-  - port: 8081
+  - port: 8080
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
