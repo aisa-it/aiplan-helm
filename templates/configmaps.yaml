@@ -34,6 +34,11 @@ data:
   EXTERNAL_MEMDB: "http://memdb:8080"
 {{- end}}
   JITSI_DISABLED: {{ .Values.aiplan.jitsiDisabled | quote }}
+  LDAP_URL: {{ .Values.ldap.serverURL }}
+  LDAP_BASE_DN: {{ .Values.ldap.baseDN }}
+  LDAP_BIND_DN: {{ .Values.ldap.bindDN }}
+  LDAP_BIND_PASSWORD: {{ .Values.ldap.bindPassword }}
+  LDAP_FILTER: {{ .Values.ldap.emailSearchFilter }}
 ---
 apiVersion: v1
 kind: ConfigMap

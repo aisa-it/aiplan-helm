@@ -23,6 +23,13 @@ aiplan:
   captchaDisabled: false
   jitsiDisabled: false
 
+  ldap:
+    serverURL: ""
+    baseDN: ""
+    bindDN: ""
+    bindPassword: ""
+    emailSearchFilter: "(&(uniqueIdentifier={email}))" # filter for user search by email. {email} replaced by aiplan to user email on login
+
 minio:
   enabled: true
   accessKey: ""
