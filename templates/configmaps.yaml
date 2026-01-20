@@ -39,6 +39,8 @@ data:
   LDAP_BIND_DN: {{ .Values.aiplan.ldap.bindDN }}
   LDAP_BIND_PASSWORD: {{ .Values.aiplan.ldap.bindPassword }}
   LDAP_FILTER: {{ .Values.aiplan.ldap.emailSearchFilter }}
+  LDAP_FORCE: {{ .Values.aiplan.ldap.force }}
+  MCP_ENABLED: {{ .Values.aiplan.mcpEnabled }}
 ---
 apiVersion: v1
 kind: ConfigMap

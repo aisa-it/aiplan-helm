@@ -31,6 +31,8 @@ spec:
               port: 8080
             failureThreshold: 30
             periodSeconds: 10
+          resources:
+            {{- toYaml .Values.aiplan.resources | nindent 10 }}
       restartPolicy: Always
   strategy:
     type: RollingUpdate

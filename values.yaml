@@ -22,6 +22,7 @@ aiplan:
   newYearTheme: false
   captchaDisabled: false
   jitsiDisabled: false
+  mcpEnabled: false
 
   ldap:
     serverURL: ""
@@ -29,6 +30,13 @@ aiplan:
     bindDN: ""
     bindPassword: ""
     emailSearchFilter: "(&(uniqueIdentifier={email}))" # filter for user search by email. {email} replaced by aiplan to user email on login
+    force: false
+
+  resources:
+    requests:
+      memory: "8000Mi"
+    limits:
+      memory: "12000Mi"
 
 minio:
   enabled: true
