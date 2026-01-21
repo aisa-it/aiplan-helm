@@ -34,13 +34,13 @@ data:
   EXTERNAL_MEMDB: "http://memdb:8080"
 {{- end}}
   JITSI_DISABLED: {{ .Values.aiplan.jitsiDisabled | quote }}
-  LDAP_URL: {{ .Values.aiplan.ldap.serverURL }}
-  LDAP_BASE_DN: {{ .Values.aiplan.ldap.baseDN }}
-  LDAP_BIND_DN: {{ .Values.aiplan.ldap.bindDN }}
-  LDAP_BIND_PASSWORD: {{ .Values.aiplan.ldap.bindPassword }}
-  LDAP_FILTER: {{ .Values.aiplan.ldap.emailSearchFilter }}
-  LDAP_FORCE: {{ .Values.aiplan.ldap.force }}
-  MCP_ENABLED: {{ .Values.aiplan.mcpEnabled }}
+  LDAP_URL: {{ .Values.aiplan.ldap.serverURL | quote }}
+  LDAP_BASE_DN: {{ .Values.aiplan.ldap.baseDN | quote }}
+  LDAP_BIND_DN: {{ .Values.aiplan.ldap.bindDN | quote }}
+  LDAP_BIND_PASSWORD: {{ .Values.aiplan.ldap.bindPassword | quote }}
+  LDAP_FILTER: {{ .Values.aiplan.ldap.emailSearchFilter | quote }}
+  LDAP_FORCE: {{ .Values.aiplan.ldap.force | quote }}
+  MCP_ENABLED: {{ .Values.aiplan.mcpEnabled | quote }}
 ---
 apiVersion: v1
 kind: ConfigMap
