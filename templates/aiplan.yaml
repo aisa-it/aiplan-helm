@@ -32,7 +32,7 @@ spec:
             failureThreshold: 30
             periodSeconds: 10
           resources:
-            {{- toYaml .Values.aiplan.resources | nindent 10 }}
+            {{- toYaml .Values.aiplan.resources | nindent 12 }}
       restartPolicy: Always
   strategy:
     type: RollingUpdate
