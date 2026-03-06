@@ -56,6 +56,9 @@ db:
   url: "" # If using external db
   storage: 10Gi
 
+  shm:
+    size: "512Mi"
+
 memDB:
   standalone: false
   storage: 1Gi

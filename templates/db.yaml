@@ -24,11 +24,17 @@ spec:
           volumeMounts:
             - name: postgres-storage
               mountPath: /var/lib/postgresql/data
+            - name: dshm
+              mountPath: /dev/shm
       restartPolicy: Always
       volumes:
       - name: postgres-storage
         persistentVolumeClaim:
           claimName: postgres-pvc
+      - name: dshm
+        emptyDir:
+          medium: Memory
+          sizeLimit: {{ .Values.db.shm.size | quote }}
 ---
 apiVersion: v1
 kind: Service
