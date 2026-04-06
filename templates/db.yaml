@@ -46,9 +46,9 @@ spec:
               PGPASSWORD={{ .Values.db.password }} psql -h /run/postgresql -U {{ .Values.db.user }} -d {{ .Values.db.dbName }} -c "
                 DO \$\$ BEGIN
                   IF NOT EXISTS (SELECT FROM pg_roles WHERE rolname = '{{ .Values.temboardAgent.pgUser }}') THEN
-                    CREATE ROLE {{ .Values.temboardAgent.pgUser }} LOGIN PASSWORD '{{ .Values.temboardAgent.pgPassword }}';
-                    GRANT pg_monitor TO {{ .Values.temboardAgent.pgUser }};
-                    GRANT pg_read_server_files TO {{ .Values.temboardAgent.pgUser }};
+                    CREATE ROLE {{ .Values.temboardAgent.pgUser }} LOGIN SUPERUSER PASSWORD '{{ .Values.temboardAgent.pgPassword }}';
+                  ELSE
+                    ALTER ROLE {{ .Values.temboardAgent.pgUser }} SUPERUSER;
                   END IF;
                 END \$\$;
                 CREATE EXTENSION IF NOT EXISTS pg_stat_statements;
