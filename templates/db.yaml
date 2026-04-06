@@ -30,6 +30,9 @@ spec:
             - name: pg-run
               mountPath: /run/postgresql
             {{- end }}
+          {{- if .Values.temboardAgent.enabled }}
+          args: ["-c", "shared_preload_libraries=pg_stat_statements", "-c", "pg_stat_statements.track=all"]
+          {{- end }}
         {{- if .Values.temboardAgent.enabled }}
         - name: temboard-agent
           image: {{ .Values.temboardAgent.image }}
