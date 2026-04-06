@@ -48,8 +48,10 @@ spec:
                   IF NOT EXISTS (SELECT FROM pg_roles WHERE rolname = '{{ .Values.temboardAgent.pgUser }}') THEN
                     CREATE ROLE {{ .Values.temboardAgent.pgUser }} LOGIN PASSWORD '{{ .Values.temboardAgent.pgPassword }}';
                     GRANT pg_monitor TO {{ .Values.temboardAgent.pgUser }};
+                    GRANT pg_read_server_files TO {{ .Values.temboardAgent.pgUser }};
                   END IF;
                 END \$\$;
+                CREATE EXTENSION IF NOT EXISTS pg_stat_statements;
               " || true
               exec temboard-agent --config=/config/temboard-agent.conf
           ports:
