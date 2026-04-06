@@ -53,6 +53,9 @@ spec:
                 END \$\$;
                 CREATE EXTENSION IF NOT EXISTS pg_stat_statements;
               " || true
+              PGPASSWORD={{ .Values.db.password }} psql -h /run/postgresql -U {{ .Values.db.user }} -d public -c "
+                CREATE EXTENSION IF NOT EXISTS pg_stat_statements;
+              " || true
               exec temboard-agent --config=/config/temboard-agent.conf
           ports:
             - containerPort: {{ .Values.temboardAgent.port }}
