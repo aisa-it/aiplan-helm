@@ -43,6 +43,14 @@ spec:
               while [ ! -S /run/postgresql/.s.PGSQL.5432 ]; do sleep 2; done
               PGDATA=/var/lib/postgresql/data
               printf "%s\n%s\n%s\n%s\n%s\n%s\n%s\n" 1 "${PGDATA}" "$(date +%s)" 5432 /run/postgresql "*" "  5432001    196608" > ${PGDATA}/postmaster.pid
+              PGPASSWORD={{ .Values.db.password }} psql -h /run/postgresql -U {{ .Values.db.user }} -d {{ .Values.db.dbName }} -c "
+                DO \$\$ BEGIN
+                  IF NOT EXISTS (SELECT FROM pg_roles WHERE rolname = '{{ .Values.temboardAgent.pgUser }}') THEN
+                    CREATE ROLE {{ .Values.temboardAgent.pgUser }} LOGIN PASSWORD '{{ .Values.temboardAgent.pgPassword }}';
+                    GRANT pg_monitor TO {{ .Values.temboardAgent.pgUser }};
+                  END IF;
+                END \$\$;
+              " || true
               exec temboard-agent --config=/config/temboard-agent.conf
           ports:
             - containerPort: {{ .Values.temboardAgent.port }}
