@@ -78,3 +78,14 @@ ingress:
   tls:
     enabled: true
     secretName: "aiplan-online-tls"
+
+temboardAgent:
+  enabled: false
+  image: "dalibo/temboard-agent:latest"
+  hostname: "aiplan-db"
+  key: "change-me-secret-key"
+  port: 2345
+  signingPublicKey: ""
+  pgUser: "temboard_mon"
+  pgPassword: "change-me"
+  externalIP: ""

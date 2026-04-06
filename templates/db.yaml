@@ -26,6 +26,36 @@ spec:
               mountPath: /var/lib/postgresql/data
             - name: dshm
               mountPath: /dev/shm
+            {{- if .Values.temboardAgent.enabled }}
+            - name: pg-run
+              mountPath: /run/postgresql
+            {{- end }}
+        {{- if .Values.temboardAgent.enabled }}
+        - name: temboard-agent
+          image: {{ .Values.temboardAgent.image }}
+          command: ["sh", "-c"]
+          args:
+            - |
+              adduser --disabled-password --uid 70 --gecos "" postgres 2>/dev/null || true
+              while [ ! -S /run/postgresql/.s.PGSQL.5432 ]; do sleep 2; done
+              PGDATA=/var/lib/postgresql/data
+              printf "%s\n%s\n%s\n%s\n%s\n%s\n%s\n" 1 "${PGDATA}" "$(date +%s)" 5432 /run/postgresql "*" "  5432001    196608" > ${PGDATA}/postmaster.pid
+              exec temboard-agent --config=/config/temboard-agent.conf
+          ports:
+            - containerPort: {{ .Values.temboardAgent.port }}
+          resources:
+            requests:
+              memory: "64Mi"
+            limits:
+              memory: "256Mi"
+          volumeMounts:
+            - name: pg-run
+              mountPath: /run/postgresql
+            - name: postgres-storage
+              mountPath: /var/lib/postgresql/data
+            - name: temboard-agent-config
+              mountPath: /config
+        {{- end }}
       restartPolicy: Always
       volumes:
       - name: postgres-storage
@@ -35,6 +65,13 @@ spec:
         emptyDir:
           medium: Memory
           sizeLimit: {{ .Values.db.shm.size | quote }}
+      {{- if .Values.temboardAgent.enabled }}
+      - name: pg-run
+        emptyDir: {}
+      - name: temboard-agent-config
+        configMap:
+            name: temboard-agent-config
+      {{- end }}
 ---
 apiVersion: v1
 kind: Service
@@ -45,6 +82,23 @@ spec:
     app: postgres
   ports:
   - port: 5432
+{{- if .Values.temboardAgent.enabled }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: temboard-agent
+spec:
+  selector:
+    app: postgres
+  ports:
+  - port: {{ .Values.temboardAgent.port }}
+    targetPort: {{ .Values.temboardAgent.port }}
+  {{- if .Values.temboardAgent.externalIP }}
+  externalIPs:
+  - {{ .Values.temboardAgent.externalIP }}
+  {{- end }}
+{{- end }}
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim

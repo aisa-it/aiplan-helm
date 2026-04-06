@@ -62,3 +62,32 @@ data:
   AWS_SECRET_ACCESS_KEY: {{ .Values.minio.secretKey }}
   AWS_S3_ENDPOINT_URL: {{ .Values.minio.endpointURL }}
   AWS_S3_BUCKET_NAME: {{ .Values.minio.bucketName }}
+{{- if .Values.temboardAgent.enabled }}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: temboard-agent-config
+data:
+  temboard-agent.conf: |
+    [temboard]
+    hostname = {{ .Values.temboardAgent.hostname }}
+    key = {{ .Values.temboardAgent.key }}
+    port = {{ .Values.temboardAgent.port }}
+    ssl_cert_file = /etc/ssl/certs/ssl-cert-snakeoil.pem
+    ssl_key_file = /etc/ssl/private/ssl-cert-snakeoil.key
+    signing_public_key = /config/signing-public.pem
+
+    [postgresql]
+    host = /run/postgresql
+    port = 5432
+    user = {{ .Values.temboardAgent.pgUser }}
+    password = {{ .Values.temboardAgent.pgPassword }}
+    dbname = {{ .Values.db.dbName }}
+
+    [logging]
+    method = stderr
+    level = INFO
+  signing-public.pem: |
+    {{ .Values.temboardAgent.signingPublicKey | nindent 4 }}
+{{- end }}
