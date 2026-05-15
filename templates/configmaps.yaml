@@ -41,6 +41,9 @@ data:
   LDAP_FILTER: {{ .Values.aiplan.ldap.emailSearchFilter | quote }}
   LDAP_FORCE: {{ .Values.aiplan.ldap.force | quote }}
   MCP_ENABLED: {{ .Values.aiplan.mcpEnabled | quote }}
+  OTEL_ENDPOINT: {{ .Values.aiplan.otelEndpoint | quote }}
+  OTEL_TOKEN: {{ .Values.aiplan.otelToken | quote }}
+  OTEL_SAMPLE_RATE: {{ .Values.aiplan.otelSampleRate | quote }}
 ---
 apiVersion: v1
 kind: ConfigMap

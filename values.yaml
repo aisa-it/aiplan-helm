@@ -23,6 +23,9 @@ aiplan:
   captchaDisabled: false
   jitsiDisabled: false
   mcpEnabled: false
+  otelEndpoint: ""
+  otelToken: ""
+  otelSampleRate: 0.1
 
   ldap:
     serverURL: ""
